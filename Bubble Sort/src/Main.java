@@ -11,7 +11,6 @@
 import java.util.Arrays;
 
 public class Main {
-    int index = 0;
     public static int[] BubbleSort(int[] data) {
         boolean sorted = true;
         for(int i = 0; i < data.length - 1; i++) {
