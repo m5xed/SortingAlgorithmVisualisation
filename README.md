@@ -6,4 +6,5 @@
 <ul>
     <li>Version 1.0: Pure code, BubbleSort.java + VisualGUI.java </li>
     <li>Version 1.1: Comments added</li>
+    <li>Version 1.2: Added labels for each bar in the GUI</li>
 </ul>
