@@ -1,5 +1,5 @@
 /*
- * Filename - Main.java
+ * Filename - BubbleSort.java
  * Date started - 12/03/2024
  * Date edited - 14/03/2024
  * Author - Max Field
@@ -8,8 +8,8 @@
  *             Pure code written
  */
 
-public class Main {
-    public static int[] BubbleSort(int[] data) {
+public class BubbleSort {
+    public static int[] BubbleSortAlgorithm(int[] data) {
         boolean sorted = true;
         for(int i = 0; i < data.length - 1; i++) {
             if(data[i] > data[i+1]) {
@@ -22,7 +22,7 @@ public class Main {
         if(sorted) {
             return data;
         } else {
-            return BubbleSort(data);
+            return BubbleSortAlgorithm(data);
         }
     }
 }

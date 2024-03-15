@@ -57,7 +57,7 @@ public class visualGUI extends JFrame {
         // "Sort" button will call the sorting algorithm when clicked, and repaint the new order
         JButton sortButton = new JButton("Sort");
         sortButton.addActionListener(e -> {
-            this.sortedData = Main.BubbleSort(this.sortedData);
+            this.sortedData = BubbleSort.BubbleSortAlgorithm(this.sortedData);
             visualContainer.repaint();
         });
 
