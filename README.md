@@ -8,4 +8,7 @@
     <li>Version 1.1: Comments added</li>
     <li>Version 1.2: Added labels for each bar in the GUI</li>
     <li>Version 1.3: Restructured code, Renamed file "BubbleSort.java" (from "Main.java") and started "TopMenu.java"</li>
+    <ul>
+        <li> Version 1.3.1 - TopMenu.Java: Added a text field for data input from the user</li>
+    </ul>
 </ul>
