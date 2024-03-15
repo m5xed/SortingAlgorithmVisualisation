@@ -4,8 +4,10 @@
  * Date edited - 14/03/2024
  * Author - Max Field
  * Copyright - No copyright
- * Version 1.1:
- *             Pure code written + Comments
+ * Version 1.2:
+ *             1.1 - Pure code written + Comments
+ *             1.2 - Added labels to the bars
+ *
  */
 import javax.swing.*;
 import java.awt.*;
@@ -103,6 +105,16 @@ public class visualGUI extends JFrame {
                     g.fillRect(x,y,width,height);
                     g.setColor(Color.BLACK);
                     g.drawRect(x,y,width,height);
+
+                    // Draw labels
+                    String rectLabel = String.valueOf(data[i]);
+                    FontMetrics fontMetrics = g.getFontMetrics();
+                    int labelWidth = fontMetrics.stringWidth(rectLabel);
+                    int labelHeight = fontMetrics.getHeight();
+                    int labelX = x + (width - labelWidth) / 2;
+                    int labelY = y + (height - labelHeight) / 2;
+                    g.setColor(Color.BLACK);
+                    g.drawString(String.valueOf(sortedData[i]), labelX, labelY);
                 }
 
             }
