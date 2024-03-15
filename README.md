@@ -11,4 +11,5 @@
     <ul>
         <li> Version 1.3.1 - TopMenu.Java: Added a text field for data input from the user</li>
     </ul>
+    <li>Version 1.4 - Added fucntionaility to TopMenu.java, Added selection sort option</li>
 </ul>
