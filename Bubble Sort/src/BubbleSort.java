@@ -7,16 +7,16 @@
  * Version 1.0:
  *             Pure code written
  */
-
+import java.util.ArrayList;
 public class BubbleSort {
-    public static int[] BubbleSortAlgorithm(int[] data) {
+    public static ArrayList<Integer> BubbleSortAlgorithm(ArrayList<Integer> data) {
         boolean sorted = true;
-        for(int i = 0; i < data.length - 1; i++) {
-            if(data[i] > data[i+1]) {
+        for(int i = 0; i < data.size() - 1; i++) {
+            if(data.get(i) > data.get(i + 1)) {
                 sorted = false;
-                int dataBuffer = data[i];
-                data[i] = data[i + 1];
-                data[i + 1] = dataBuffer;
+                int dataBuffer = data.get(i);
+                data.set(i, data.get(i + 1));
+                data.set(i + 1, dataBuffer);
             }
         }
         if(sorted) {

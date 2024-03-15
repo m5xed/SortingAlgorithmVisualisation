@@ -11,8 +11,7 @@
  */
 import javax.swing.*;
 import java.awt.*;
-
-
+import java.util.ArrayList;
 /**
  * The {@link #visualGUI} class provides a visual representation of sorting items in an array, using Java swing
  * components.
@@ -37,19 +36,20 @@ import java.awt.*;
  */
 public class visualGUI extends JFrame {
     private JPanel visualContainer;
-    private final int[] unsortedData;
-    private int[] sortedData;
-
+    private final ArrayList<Integer> unsortedData;
+    private ArrayList<Integer> sortedData;
+    private boolean isSorted = false;
+    private JButton resetButton;
 
     // Constructor for the GUI, accepts the array of integers as an argument
-    public visualGUI(int[] data) {
-        super("Bubble Sort Visualisation");
+    public visualGUI(ArrayList<Integer> data, String sortType) {
+        super("Sorting Visualisation");
         // Set closing action
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         // Create clones of the data to allow resetting
-        unsortedData = data.clone();
-        sortedData = data.clone();
+        unsortedData = new ArrayList<>(data);
+        sortedData = new ArrayList<>(data);
 
         // Create JPanel to contain the buttons
         JPanel buttonContainer = new JPanel();
@@ -57,15 +57,31 @@ public class visualGUI extends JFrame {
         // "Sort" button will call the sorting algorithm when clicked, and repaint the new order
         JButton sortButton = new JButton("Sort");
         sortButton.addActionListener(e -> {
-            this.sortedData = BubbleSort.BubbleSortAlgorithm(this.sortedData);
-            visualContainer.repaint();
+            if(!isSorted) {
+                switch (sortType) {
+                    case "Bubble Sort":
+                        this.sortedData = BubbleSort.BubbleSortAlgorithm(this.sortedData);
+                        break;
+                    case "Selection Sort":
+                        this.sortedData = SelectionSort.SelectionSortAlgorithm(this.sortedData);
+                        break;
+                }
+                visualContainer.repaint();
+                isSorted = true;
+                sortButton.setEnabled(false);
+                resetButton.setEnabled(true);
+            }
         });
 
         // "Reset" button will reset the GUI to the unsorted values
-        JButton resetButton = new JButton("Reset");
+        resetButton = new JButton("Reset");
+        resetButton.setEnabled(false);
         resetButton.addActionListener(e -> {
-            this.sortedData = unsortedData.clone();
+            sortedData = new ArrayList<>(unsortedData);
             visualContainer.repaint();
+            isSorted = false;
+            resetButton.setEnabled(false);
+            sortButton.setEnabled(true);
         });
 
         // Add buttons to container
@@ -79,7 +95,9 @@ public class visualGUI extends JFrame {
                 super.paintComponent(g);
 
                 // Calculate width of each bar, relative to the panel size and number of elements
-                int width = getWidth() / sortedData.length;
+                System.out.println(sortedData);
+                System.out.println(unsortedData);
+                int width = getWidth() / sortedData.size();
 
                 // Calculate the largest value in the array
                 int maxHeight = 0;
@@ -90,15 +108,15 @@ public class visualGUI extends JFrame {
                 }
 
                 // Calculate the factor to scale the height of each bar
-                int rectHeightFactor = getHeight() / maxHeight;
+                int rectHeightFactor = maxHeight != 0 ? getHeight() / maxHeight : 1;
 
                 // Draw each bar
-                for (int i = 0; i < sortedData.length; i++) {
+                for (int i = 0; i < sortedData.size(); i++) {
                     // Coordinates of the bar
                     int x = i * width;
-                    int y = getHeight() - sortedData[i] * rectHeightFactor;
+                    int y = getHeight() - sortedData.get(i) * rectHeightFactor;
                     // Height of the bar
-                    int height = sortedData[i] * rectHeightFactor;
+                    int height = sortedData.get(i) * rectHeightFactor;
 
                     // Set bar properties (Fill and border colours)
                     g.setColor(Color.CYAN);
@@ -107,14 +125,14 @@ public class visualGUI extends JFrame {
                     g.drawRect(x,y,width,height);
 
                     // Draw labels
-                    String rectLabel = String.valueOf(data[i]);
+                    String rectLabel = String.valueOf(data.get(i));
                     FontMetrics fontMetrics = g.getFontMetrics();
                     int labelWidth = fontMetrics.stringWidth(rectLabel);
                     int labelHeight = fontMetrics.getHeight();
                     int labelX = x + (width - labelWidth) / 2;
                     int labelY = y + (height - labelHeight) / 2;
                     g.setColor(Color.BLACK);
-                    g.drawString(String.valueOf(sortedData[i]), labelX, labelY);
+                    g.drawString(String.valueOf(sortedData.get(i)), labelX, labelY);
                 }
 
             }
@@ -134,8 +152,13 @@ public class visualGUI extends JFrame {
     public static void main(String[] args){
         // Test data, Change to any number of values.
         // Bubble sort will slow down with large quantities due to a time complexity of -> O(n^2)
-        int[] unsorted = {10,70,30,40,22,60};
+        int[] array = {10,90,30,45,65,23,56};
+        ArrayList<Integer> data = new ArrayList<>();
+        for (int element : array) {
+            data.add(element);
+        }
+
         // Initialise GUI
-        new visualGUI(unsorted);
+        new visualGUI(data, "Bubble Sort");
     }
 }
